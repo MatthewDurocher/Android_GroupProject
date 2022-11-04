@@ -10,121 +10,40 @@ import java.io.Serializable
 import java.util.*
 
 //
-class State : Comparable<Any?>, Serializable {
-    private var name: String? = null // state name
+class State(
+    var name: String,
+    var code: String,
+    var capital: String,
+    var area: Int,
+    var union: String,
+    var wikiUrl: String,
 
-    // Accessor
-    var drawable: String? = null // 2-letter code
-        private set
-    private var capital: String? = null // state capital
-    private var area = 0 // state area in square km
-    private var union: String? = null // entry date into union
-    private var wikiUrl: String? = null // wiki URL of the state
+        ) : Comparable<Any?>, Serializable {
 
-    // Default Constructor
-    constructor() {
-        setName(null)
-        setCode(null)
-        setCapital(null)
-        setArea(0)
-        setUnion(null)
-        setWikiUrl(null)
-    }
-
-    // Constructor
-    constructor(
-        name: String?,
-        code: String?,
-        capital: String?,
-        area: Int,
-        union: String?,
-        wikiUrl: String?
-    ) {
-        setName(name)
-        setCode(code)
-        setCapital(capital)
-        setArea(area)
-        setUnion(union)
-        setWikiUrl(wikiUrl)
-    }
-
-    // Comparison Fonction to sort the list after reading into JSON
+    // Comparison Function to sort the list after reading into JSON
     override fun compareTo(other: Any?): Int {
         return this.toString().compareTo(other.toString())
     }
 
-    // Accessor
-    fun getName(): String? {
-        return name
-    }
-
-    // Mutator
-    fun setName(name: String?) {
-        this.name = name
-    }
-
-    // Accesseur de l'attribut code
-    fun getCode(): String? {
-        return drawable
-    }
-
-    // Accessor
-    fun setCode(code: String?) {
-        drawable = code
-    }
-
-    //Accessor
-    fun getCapital(): String? {
-        return capital
-    }
-
-    // Mutator
-    fun setCapital(capital: String?) {
-        this.capital = capital
-    }
-
-    // Accessor
-    fun getArea(): Int {
-        return area
-    }
-
-    // Mutator
-    fun setArea(area: Int) {
-        this.area = area
-    }
-
-    // Accessor
-    fun getWikiUrl(): String? {
-        return wikiUrl
-    }
-
-    // Mutator
-    fun setWikiUrl(wikiUrl: String?) {
-        this.wikiUrl = wikiUrl
-    }
-
-    // Accessor
-    fun getUnion(): String? {
-        return union
-    }
-
-    // Mutator
-    fun setUnion(union: String?) {
-        this.union = union
-    }
-
     // Returns a String with a short description of the State
     override fun toString(): String {
-        return getName()!!
+        return name
     }
 
     // To insert an image in a provided ImageView
     // The image must be found in res/drawable and should contain
     // a name equal to the state code
     fun flagInImageView(iv: ImageView) {
-        val uri = "@drawable/" + drawable!!.lowercase(Locale.getDefault())
+        val uri = "@drawable/" + this.code.lowercase(Locale.getDefault())
+
+
+
         val imageResource = ctx!!.resources.getIdentifier(uri, null, ctx!!.packageName)
+
         val res = ctx!!.getDrawable(imageResource)
+
+
+
         iv.setImageDrawable(res)
     }
 
