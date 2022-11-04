@@ -4,14 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import android.os.Bundle
 import android.widget.ListView
-import ca.college.usa.R
-import ca.college.usa.MainActivity
+import ca.college.usa.databinding.ActivityMainBinding // important. We essentially 'imported' the xml
 import java.util.ArrayList
 
 /**
- * Full Name:
+ * Full Name: Matthew Durocher, Irina Salikhova
  *
- * Student ID:
+ * Student ID: 41036621
  *
  * Course: CST3104
  *
@@ -19,28 +18,36 @@ import java.util.ArrayList
  *
  * Assignment: Team Project
  *
- * Date :
+ * Date : November 4, 2022
  */
 class MainActivity : AppCompatActivity() {
-    // ListView <---> adapter <---> data
-    private var mAdapter: ArrayAdapter<State>? = null
-    private var mlistView: ListView? = null
+    private lateinit var binding : ActivityMainBinding
+
+    // ListView <---> adapter <---> data=
+    private lateinit var mAdapter: ArrayAdapter<State>
+    private lateinit var mlistView: ListView
 
     // Data Source for the Adapter
-    private var mStatesList: ArrayList<State>? = null
+    private lateinit var mStatesList: ArrayList<State>
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         // Load the data needed for the adapter
         mStatesList = State.readData(this, sFileName)
-        mlistView = findViewById(R.id.listView)
-        mAdapter = ArrayAdapter(
+        mlistView = binding.listView
+        mlistView.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
             mStatesList
         )
-        mlistView.setAdapter(mAdapter)
+
+
     }
 
     companion object {
