@@ -1,95 +1,74 @@
 package ca.college.usa
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import org.json.JSONObject
+import androidx.appcompat.content.res.AppCompatResources
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 import java.io.IOException
-import java.io.Serializable
-import java.util.*
+import java.io.InputStream
 
-//
-class State(
-    var name: String,
-    var code: String,
-    var capital: String,
-    var area: Int,
-    var union: String,
-    var wikiUrl: String,
+data class State(
+    var name: String? = null,
+    var code: String? = null,
+    var capital: String? = null,
+    var area: Int? = null,
+    var union: String? = null,
+    var wiki: String? = null
+    ) {
 
-        ) : Comparable<Any?>, Serializable {
-
-    // Comparison Function to sort the list after reading into JSON
-    override fun compareTo(other: Any?): Int {
-        return this.toString().compareTo(other.toString())
-    }
-
-    // Returns a String with a short description of the State
-    override fun toString(): String {
-        return name
-    }
-
-    // To insert an image in a provided ImageView
-    // The image must be found in res/drawable and should contain
-    // a name equal to the state code
-    fun flagInImageView(iv: ImageView) {
-        val uri = "@drawable/" + this.code.lowercase(Locale.getDefault())
-
-
-
-        val imageResource = ctx!!.resources.getIdentifier(uri, null, ctx!!.packageName)
-
-        val res = ctx!!.getDrawable(imageResource)
-
-
-
-        iv.setImageDrawable(res)
-    }
-
+    /*
+    The companion object is Kotlin's version of static or 'class' behaviour.
+    Think of it as a singleton object that accompanies all instances of the class
+     */
     companion object {
-        private var ctx: Context? = null // required for JSON
+        //List of all data class instances
+        val states = ArrayList<State>()
+
+        fun flagInImageView(iv: ImageView, state: State) {
+            val imageResource =
+                iv.context.resources.getIdentifier(state.code, "drawable", iv.context.packageName)
+            val res: Drawable? = AppCompatResources.getDrawable(iv.context, imageResource)
+            iv.setImageDrawable(res)
+        }
 
         // Deserialize a list of states from a file in JSON format
-        fun readData(ctx: Context?, fileName: String): ArrayList<State> {
-            val mylist = ArrayList<State>()
+        fun readData(context: Context, fileName: String) {
 
-            // Needed for drawables
-            Companion.ctx = ctx
             try {
                 // load the data in an ArrayList
-                val jsonString = readJson(fileName, Companion.ctx)
+                val jsonString = readJson(context, fileName)!!
                 val json = JSONObject(jsonString)
-                val states = json.getJSONArray("states")
+                val jArray = json.getJSONArray("states")
 
-                // Loop through the list in the json array
-                for (i in 0 until states.length()) {
+                // Initialize all individual state objects
+                for (i in 0 until jArray.length()) {
                     val e = State()
-                    e.name = states.getJSONObject(i).getString("name")
-                    e.drawable = states.getJSONObject(i).getString("code")
-                    e.capital = states.getJSONObject(i).getString("capital")
-                    e.area = states.getJSONObject(i).getInt("area")
-                    e.union = states.getJSONObject(i).getString("union")
-                    e.wikiUrl = states.getJSONObject(i).getString("wiki")
-                    mylist.add(e)
+                    e.name = jArray.getJSONObject(i).getString("name")
+                    e.code = jArray.getJSONObject(i).getString("code")
+                    e.capital = jArray.getJSONObject(i).getString("capital")
+                    e.area = jArray.getJSONObject(i).getInt("area")
+                    e.union = jArray.getJSONObject(i).getString("union")
+                    e.wiki = jArray.getJSONObject(i).getString("wiki")
+                    states.add(e)
                 }
             } catch (e: JSONException) {
                 // Log the error
                 e.printStackTrace()
             }
-            return mylist
         }
 
         // Returns a String with the contents of the JSON file
-        private fun readJson(fileName: String, context: Context?): String? {
-            var json: String? = null
-            json = try {
-                val `is` = context!!.assets.open(fileName)
-                val size = `is`.available()
-                val buffer = ByteArray(size)
-                `is`.read(buffer)
-                `is`.close()
-                String(buffer, "ISO-8859-1")
+        private fun readJson(context: Context, fileName: String): String? {
+            val json = try {
+                val stream: InputStream = context.assets.open(fileName)
+                val size = stream.available() //estimate number of readable bytes
+                val buffer = ByteArray(size) // Creates a ByteArray of size 'size'
+                stream.read(buffer) //Takes bytes from input and stores them in 'buffer'
+                stream.close()
+                String(buffer, charset("ISO-8859-1"))
             } catch (ex: IOException) {
                 // Log the error
                 ex.printStackTrace()

@@ -23,31 +23,32 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
-    // ListView <---> adapter <---> data=
-    private lateinit var mAdapter: ArrayAdapter<State>
+    // ListView <---> ArrayAdapter <----> ArrayList
     private lateinit var mlistView: ListView
-
-    // Data Source for the Adapter
+    private lateinit var mAdapter: ArrayAdapter<State>
     private lateinit var mStatesList: ArrayList<State>
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        /* Boilerplate */
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+        /*             */
 
-        // Load the data needed for the adapter
-        mStatesList = State.readData(this, sFileName)
+        // load the state data
+        State.readData(this, sFileName)
+        mStatesList = State.states
+
         mlistView = binding.listView
-        mlistView.adapter = ArrayAdapter(
+
+        mAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
             mStatesList
         )
 
-
+        mlistView.adapter = mAdapter
     }
 
     companion object {
