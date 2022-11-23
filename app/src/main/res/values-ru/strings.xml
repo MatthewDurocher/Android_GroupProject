@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">Игра "Угадай штат"</string>
+        <string name="dashboard">Результаты</string>
+        <string name="newgame">Новая игра</string>
+        <string name="learningmode">Режим обучения</string>
+        <string name="statemap">Карта американских штатов</string>
+        <string name="date_and_time">Дата и время</string>
+        <string name="result">Результат</string>
+        <string name="result_icon">Иконка результата</string>
+        <string name="state">Штат</string>
+        <string name="capital">Столица</string>
+        <string name="state_flag">Флаг штата</string>
+        <string name="wikipedia_page">Википедия (англ)</string>
+        <string name="information">Информация</string>
+        <string name="congrats">Поздравляю!</string>
+        <string name="your_result">Ваш результат </string>
+        <string name="additional_congrat1">Это лучший результат!</string>
+        <string name="additional_congrat2">Результат лучше худшего на /s очков</string>
+        <string name="inf1">Эта игра поможет научиться узнавать все американские штаты, а также их столицы и флаги.</string>
+        <string name="inf2">Игра разработана Matthew Durocher и Irina Salikhova.</string>
+        <string name="start_count">0</string>
+</resources>

@@ -1,4 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Guess US States</string>
-
+    <string name="app_name">Guess US States Game</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="newgame">New Game</string>
+    <string name="learningmode">Learning Mode</string>
+    <string name="statemap">American State Map</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="result">Result</string>
+    <string name="result_icon">Result icon</string>
+    <string name="state">State</string>
+    <string name="capital">Capital</string>
+    <string name="state_flag">State Flag</string>
+    <string name="wikipedia_page">Wikipedia</string>
+    <string name="information">Information</string>
+    <string name="congrats">Congratulations!</string>
+    <string name="your_result">Your result is</string>
+    <string name="additional_congrat1">It is the best result!</string>
+    <string name="additional_congrat2">Your result is better than the worth for /s points</string>
+    <string name="inf1">This game can help you start to recognize all US states and their flags and capitals.</string>
+    <string name="inf2">The game was developed by Matthew Durocher and Irina Salikhova.</string>
+    <string name="start_count">0</string>
 </resources>

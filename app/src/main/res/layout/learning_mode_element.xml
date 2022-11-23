@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/learnModeEl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/flagView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/state_flag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/capital_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/stateName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/state"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/capital_name"
+        app:layout_constraintEnd_toStartOf="@+id/wikiButton"
+        app:layout_constraintStart_toEndOf="@+id/flagView"
+        app:layout_constraintTop_toTopOf="@+id/flagView" />
+
+    <TextView
+        android:id="@+id/capital_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/capital"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/flagView"
+        app:layout_constraintEnd_toStartOf="@+id/wikiButton"
+        app:layout_constraintStart_toEndOf="@+id/flagView"
+        app:layout_constraintTop_toBottomOf="@+id/stateName" />
+
+    <ImageButton
+        android:id="@+id/wikiButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/wikipedia_page"
+        app:layout_constraintBottom_toBottomOf="@+id/capital_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/capital_name"
+        app:layout_constraintTop_toTopOf="@+id/stateName"
+        app:srcCompat="@drawable/wiki"
+        tools:ignore="ImageContrastCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>
