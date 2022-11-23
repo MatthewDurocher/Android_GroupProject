@@ -4,11 +4,13 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
+import kotlinx.serialization.decodeFromString
 
 /**
  * Full Name: Matthew Durocher, Irina Salikhova
@@ -23,6 +25,8 @@ import java.io.InputStream
  *
  * Date : November 4, 2022
  */
+
+@Serializable
 data class State(
     var name: String? = null,
     var code: String? = null,
@@ -49,7 +53,6 @@ data class State(
         val states = ArrayList<State>()
 
 
-
         // Deserialize a list of states from a file in JSON format
         fun readData(context: Context, fileName: String) {
 
@@ -60,15 +63,12 @@ data class State(
                 val jArray = json.getJSONArray("states")
 
                 // Initialize all individual state objects
+
                 for (i in 0 until jArray.length()) {
-                    val e = State()
-                    e.name = jArray.getJSONObject(i).getString("name")
-                    e.code = jArray.getJSONObject(i).getString("code")
-                    e.capital = jArray.getJSONObject(i).getString("capital")
-                    e.area = jArray.getJSONObject(i).getInt("area")
-                    e.union = jArray.getJSONObject(i).getString("union")
-                    e.wiki = jArray.getJSONObject(i).getString("wiki")
-                    states.add(e)
+                    val stateString = jArray.getJSONObject(i).toString()
+                    // Initializes the parametrized type from the json string "{'name':'Canada'...}"
+                    val newState = Json.decodeFromString<State>(stateString)
+                    states.add(newState)
                 }
             } catch (e: JSONException) {
                 // Log the error

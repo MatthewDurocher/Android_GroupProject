@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
 }
+
 apply plugin: 'kotlin-android'
+/* Added plugins */
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdkVersion 33
@@ -44,7 +47,9 @@ dependencies {
     implementation "androidx.core:core-ktx:1.9.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    //added dependency
+    /* Added dependencies */
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+
 }
 repositories {
     mavenCentral()
