@@ -10,6 +10,19 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 
+/**
+ * Full Name: Matthew Durocher, Irina Salikhova
+ *
+ * Student ID: 41036621
+ *
+ * Course: CST3104
+ *
+ * Term:  Fall 2022
+ *
+ * Assignment: Team Project
+ *
+ * Date : November 4, 2022
+ */
 data class State(
     var name: String? = null,
     var code: String? = null,
@@ -19,6 +32,14 @@ data class State(
     var wiki: String? = null
     ) {
 
+    /* Assigns the given State's flag to an ImageView */
+    fun flagInImageView(iv: ImageView) {
+        val imageResource =
+            iv.context.resources.getIdentifier(this.code, "drawable", iv.context.packageName)
+        val res: Drawable? = AppCompatResources.getDrawable(iv.context, imageResource)
+        iv.setImageDrawable(res)
+    }
+
     /*
     The companion object is Kotlin's version of static or 'class' behaviour.
     Think of it as a singleton object that accompanies all instances of the class
@@ -27,12 +48,7 @@ data class State(
         //List of all data class instances
         val states = ArrayList<State>()
 
-        fun flagInImageView(iv: ImageView, state: State) {
-            val imageResource =
-                iv.context.resources.getIdentifier(state.code, "drawable", iv.context.packageName)
-            val res: Drawable? = AppCompatResources.getDrawable(iv.context, imageResource)
-            iv.setImageDrawable(res)
-        }
+
 
         // Deserialize a list of states from a file in JSON format
         fun readData(context: Context, fileName: String) {
