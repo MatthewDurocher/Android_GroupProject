@@ -1,11 +1,14 @@
 package ca.college.usa
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,7 +65,10 @@ class FirstDashActivity: AppCompatActivity()  {
         newGameButton = binding.newGameButton
         newGameButton.setOnClickListener { }
         learningModeButton = binding.learningModeButton
-        learningModeButton.setOnClickListener { }
+        learningModeButton.setOnClickListener {
+            val intent = Intent(this@FirstDashActivity, LearningActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.apply {
             toggle = ActionBarDrawerToggle(this@FirstDashActivity, drawerLayout, R.string.open, R.string.close)
@@ -74,22 +80,31 @@ class FirstDashActivity: AppCompatActivity()  {
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.toDash -> {
-                        Toast.makeText(this@FirstDashActivity, "First Item Clicked", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@FirstDashActivity, R.string.here_toast, Toast.LENGTH_SHORT).show()
                     }
                     R.id.toGame -> {
                         Toast.makeText(this@FirstDashActivity, "Second Item Clicked", Toast.LENGTH_SHORT).show()
                     }
                     R.id.toLearnMode -> {
-                        Toast.makeText(this@FirstDashActivity, "third Item Clicked", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@FirstDashActivity, LearningActivity::class.java)
+                        startActivity(intent)
                     }
                     R.id.showInf -> {
-                        Toast.makeText(this@FirstDashActivity, "fourth Item Clicked", Toast.LENGTH_SHORT).show()
+                        callDialog()
                     }
                 }
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
         }
+    }
+
+    private fun callDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(R.string.information) //What is the message:
+            .setMessage(String.format("%s \n \n %s", getString(R.string.inf1), getString(R.string.inf2)))
+            .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
+            .create().show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -24,4 +24,6 @@
         <string name="info">ДОПОЛНИТЕЛЬНОЕ</string>
         <string name="open">Open</string>
         <string name="close">Close</string>
+        <string name="here_toast">Вы уже здесь</string>
+        <string name="dialog_button">Оки-доки</string>
 </resources>

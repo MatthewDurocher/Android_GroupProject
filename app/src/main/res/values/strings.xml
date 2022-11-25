@@ -24,4 +24,6 @@
     <string name="info">ADDITIONAL</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="here_toast">You are already here</string>
+    <string name="dialog_button">Ok</string>
 </resources>
