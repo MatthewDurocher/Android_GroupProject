@@ -34,10 +34,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        /*             */
 
         // load the state data
-        State.readData(this, sFileName)
+        State.readData(this, "usa.json")
         mStatesList = State.states
 
         mlistView = binding.listView
@@ -51,7 +50,4 @@ class MainActivity : AppCompatActivity() {
         mlistView.adapter = mAdapter
     }
 
-    companion object {
-        private const val sFileName = "usa.json"
-    }
 }

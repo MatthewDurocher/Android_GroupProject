@@ -2,6 +2,7 @@ package ca.college.usa
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import org.json.JSONException
@@ -28,14 +29,13 @@ import kotlinx.serialization.decodeFromString
 
 @Serializable
 data class State(
-    var name: String? = null,
-    var code: String? = null,
-    var capital: String? = null,
-    var area: Int? = null,
-    var union: String? = null,
-    var wiki: String? = null
+    var name: String,
+    var code: String,
+    var capital: String,
+    var area: Int,
+    var union: String,
+    var wiki: String
     ) {
-
     /* Assigns the given State's flag to an ImageView */
     fun flagInImageView(iv: ImageView) {
         val imageResource =
@@ -52,19 +52,20 @@ data class State(
         //List of all data class instances
         val states = ArrayList<State>()
 
-
         // Deserialize a list of states from a file in JSON format
         fun readData(context: Context, fileName: String) {
-
             try {
                 // load the data in an ArrayList
                 val jsonString = readJson(context, fileName)!!
                 val json = JSONObject(jsonString)
                 val jArray = json.getJSONArray("states")
+                val numStates = jArray.length()
 
                 // Initialize all individual state objects
-
-                for (i in 0 until jArray.length()) {
+                if (numStates != 49) {
+                    Log.wtf("App", "We have $numStates states, there should be 49.")
+                }
+                for (i in 0 until numStates) {
                     val stateString = jArray.getJSONObject(i).toString()
                     // Initializes the parametrized type from the json string "{'name':'Canada'...}"
                     val newState = Json.decodeFromString<State>(stateString)
