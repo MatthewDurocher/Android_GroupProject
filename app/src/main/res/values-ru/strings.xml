@@ -20,4 +20,8 @@
         <string name="inf1">Эта игра поможет научиться узнавать все американские штаты, а также их столицы и флаги.</string>
         <string name="inf2">Игра разработана Matthew Durocher и Irina Salikhova.</string>
         <string name="start_count">0</string>
+        <string name="mode">РЕЖИМ</string>
+        <string name="info">ДОПОЛНИТЕЛЬНОЕ</string>
+        <string name="open">Open</string>
+        <string name="close">Close</string>
 </resources>

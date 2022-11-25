@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/toDash"
+        android:icon="@drawable/trophy"
+        android:title="@string/dashboard" />
+
+    <item android:title="@string/mode">
+        <menu>
+            <item
+                android:id="@+id/toGame"
+                android:icon="@android:drawable/ic_media_play"
+                android:title="@string/newgame" />
+            <item
+                android:id="@+id/toLearnMode"
+                android:icon="@android:drawable/ic_menu_myplaces"
+                android:title="@string/learningmode" />
+        </menu>
+    </item>
+        <item android:title="@string/info">
+            <menu>
+                <item
+                android:id="@+id/showInf"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="@string/information" />
+            </menu>
+        </item>
+</menu>
