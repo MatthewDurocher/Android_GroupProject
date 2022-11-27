@@ -28,12 +28,12 @@ import kotlinx.serialization.decodeFromString
 
 @Serializable
 data class State(
-    var name: String? = null,
-    var code: String? = null,
-    var capital: String? = null,
-    var area: Int? = null,
-    var union: String? = null,
-    var wiki: String? = null
+    var name: String,
+    var code: String,
+    var capital: String,
+    var area: Int,
+    var union: String,
+    var wiki: String
     ) {
 
     /* Assigns the given State's flag to an ImageView */
@@ -50,15 +50,15 @@ data class State(
      */
     companion object {
         //List of all data class instances
-        val states = ArrayList<State>()
-
+        var states : ArrayList<State>? = null
 
         // Deserialize a list of states from a file in JSON format
-        fun readData(context: Context, fileName: String) {
+        fun readData(context: Context): ArrayList<State> {
+            states = ArrayList()
 
             try {
                 // load the data in an ArrayList
-                val jsonString = readJson(context, fileName)!!
+                val jsonString = readJson(context, "usa.json")!!
                 val json = JSONObject(jsonString)
                 val jArray = json.getJSONArray("states")
 
@@ -68,12 +68,14 @@ data class State(
                     val stateString = jArray.getJSONObject(i).toString()
                     // Initializes the parametrized type from the json string "{'name':'Canada'...}"
                     val newState = Json.decodeFromString<State>(stateString)
-                    states.add(newState)
+                    states!!.add(newState)
                 }
             } catch (e: JSONException) {
                 // Log the error
                 e.printStackTrace()
             }
+
+            return states as ArrayList<State>
         }
 
         // Returns a String with the contents of the JSON file

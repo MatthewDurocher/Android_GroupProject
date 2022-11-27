@@ -32,8 +32,7 @@ class LearningActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // load the state data
-        State.readData(this, "usa.json")
-        stateList = State.states
+        stateList = State.states ?: State.readData(this)
 
 
         learnView = binding.learningView
