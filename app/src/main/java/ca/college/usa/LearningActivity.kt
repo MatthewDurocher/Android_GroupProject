@@ -42,43 +42,42 @@ class LearningActivity : AppCompatActivity() {
         learnView.layoutManager = LinearLayoutManager(this)
 
         learnAdapter.onItemClick = { contact ->
-
             // do something with your item
             Log.d("TAG", "i clicked it")
         }
 
+        binding.apply {
+            toggle = ActionBarDrawerToggle(this@LearningActivity, learnDrawer.drawerLayout, R.string.open, R.string.close)
+            learnDrawer.drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
 
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+            learnDrawer.navView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.toDash -> {
+                        val intent = Intent(this@LearningActivity, FirstDashActivity::class.java)
+                        startActivity(intent)
+                    }
+                    R.id.toGame -> {
+                        Toast.makeText(this@LearningActivity, "Second Item Clicked", Toast.LENGTH_SHORT).show()
+                        val gameIntent = Intent(this@LearningActivity, GameActivity::class.java)
+                        startActivity(gameIntent)
+                    }
+                    R.id.toLearnMode -> {
+                        Toast.makeText(this@LearningActivity,  R.string.here_toast, Toast.LENGTH_SHORT).show()
 
-    binding.apply {
-        toggle = ActionBarDrawerToggle(this@LearningActivity, drawerLayout, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.toDash -> {
-                    val intent = Intent(this@LearningActivity, FirstDashActivity::class.java)
-                    startActivity(intent)
+                    }
+                    R.id.showInf -> {
+                        callDialog()
+                    }
                 }
-                R.id.toGame -> {
-                    Toast.makeText(this@LearningActivity, "Second Item Clicked", Toast.LENGTH_SHORT).show()
-                }
-                R.id.toLearnMode -> {
-                    Toast.makeText(this@LearningActivity,  R.string.here_toast, Toast.LENGTH_SHORT).show()
-
-                }
-                R.id.showInf -> {
-                    callDialog()
-                }
+                learnDrawer.drawerLayout.closeDrawer(GravityCompat.START)
+                true
             }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
         }
     }
-}
+
     private fun callDialog() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(R.string.information) //What is the message:
@@ -87,12 +86,10 @@ class LearningActivity : AppCompatActivity() {
             .create().show()
     }
 
-override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    if (toggle.onOptionsItemSelected(item)){
-        true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)){
+            true
+        }
+        return super.onOptionsItemSelected(item)
     }
-    return super.onOptionsItemSelected(item)
-}
-
-
 }

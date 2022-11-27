@@ -5,7 +5,7 @@
     android:id="@+id/gameMode"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".GameActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -81,24 +81,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="start">
-
-        <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
-
-        <!-- THIS IS WHAT POPS OUT FROM THE SIDE:-->
-        <com.google.android.material.navigation.NavigationView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:menu="@menu/drawer_menu"
-            app:headerLayout="@layout/header_layout"
-            android:id="@+id/nav_view"/>
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    <include
+        android:id="@+id/gameDrawer"
+        layout="@layout/drawer_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

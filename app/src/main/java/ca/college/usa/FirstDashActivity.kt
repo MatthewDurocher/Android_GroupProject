@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -22,9 +21,6 @@ class FirstDashActivity: AppCompatActivity()  {
     private lateinit var dashView: RecyclerView
     private lateinit var dashAdapter: DashboardAdapter
     private lateinit var resultList: ArrayList<Results>
-
-    private lateinit var newGameButton: Button
-    private lateinit var learningModeButton: Button
 
     private val SHARPREFNAME = "dashboard_results"
     private val LATESTTIME = "latest_time"
@@ -46,7 +42,7 @@ class FirstDashActivity: AppCompatActivity()  {
         // to receive previous result information from sharedpref file
         sharPref = getSharedPreferences(SHARPREFNAME, MODE_PRIVATE)
 
-// writer part here is for test only, it will be populated with actual data later
+        // writer part here is for test only, it will be populated with actual data later
         val writer: SharedPreferences.Editor = sharPref.edit()
         writer.putString(LATESTTIME, "it is latest time for test")
         writer.putString(BESTTIME, "it is best time for test")
@@ -56,44 +52,72 @@ class FirstDashActivity: AppCompatActivity()  {
         writer.putInt(WORSTRESULT, 3)
         writer.apply() //save to disk
 
-        resultList = restaurePrefs(sharPref)  // load data
-        dashView = binding.dashboardView
-        dashView.layoutManager = LinearLayoutManager(this)
-        dashAdapter = DashboardAdapter(resultList)
-        dashView.adapter = dashAdapter
+        resultList = restorePrefs(sharPref)  // load data
 
-        newGameButton = binding.newGameButton
-        newGameButton.setOnClickListener { }
-        learningModeButton = binding.learningModeButton
-        learningModeButton.setOnClickListener {
+        binding.dashboardView.layoutManager = LinearLayoutManager(this)
+
+        dashAdapter = DashboardAdapter(resultList)
+        binding.dashboardView.adapter = dashAdapter
+
+        binding.newGameButton.setOnClickListener {
+            val gameIntent = Intent(
+                this@FirstDashActivity,
+                GameActivity::class.java)
+            startActivity(gameIntent)
+        }
+
+        binding.learningModeButton.setOnClickListener {
             val intent = Intent(this@FirstDashActivity, LearningActivity::class.java)
             startActivity(intent)
         }
 
         binding.apply {
-            toggle = ActionBarDrawerToggle(this@FirstDashActivity, drawerLayout, R.string.open, R.string.close)
-            drawerLayout.addDrawerListener(toggle)
+            toggle = ActionBarDrawerToggle(
+                this@FirstDashActivity,
+                dashDrawer.drawerLayout,
+                R.string.open,
+                R.string.close
+            )
+            dashDrawer.drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
 
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            navView.setNavigationItemSelectedListener {
+            dashDrawer.navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.toDash -> {
-                        Toast.makeText(this@FirstDashActivity, R.string.here_toast, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@FirstDashActivity,
+                            R.string.here_toast,
+                            Toast.LENGTH_SHORT).show()
+
+                        val dashIntent = Intent(
+                            this@FirstDashActivity,
+                            FirstDashActivity::class.java)
+                        startActivity(dashIntent)
                     }
                     R.id.toGame -> {
-                        Toast.makeText(this@FirstDashActivity, "Second Item Clicked", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@FirstDashActivity,
+                            "Second Item Clicked",
+                            Toast.LENGTH_SHORT).show()
+
+                        val gameIntent = Intent(
+                            this@FirstDashActivity,
+                            GameActivity::class.java)
+                        startActivity(gameIntent)
                     }
                     R.id.toLearnMode -> {
-                        val intent = Intent(this@FirstDashActivity, LearningActivity::class.java)
-                        startActivity(intent)
+                        val learnIntent = Intent(
+                            this@FirstDashActivity,
+                            LearningActivity::class.java)
+                        startActivity(learnIntent)
                     }
                     R.id.showInf -> {
                         callDialog()
                     }
                 }
-                drawerLayout.closeDrawer(GravityCompat.START)
+                dashDrawer.drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
         }
@@ -102,22 +126,38 @@ class FirstDashActivity: AppCompatActivity()  {
     private fun callDialog() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(R.string.information) //What is the message:
-            .setMessage(String.format("%s \n \n %s", getString(R.string.inf1), getString(R.string.inf2)))
+            .setMessage(String.format(
+                "%s \n \n %s",
+                getString(R.string.inf1),
+                getString(R.string.inf2)
+            ))
             .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
             .create().show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)){
-            true
+            return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun restaurePrefs(sharPref: SharedPreferences): ArrayList<Results> {
-        val latestResult = Results(dateTime = sharPref.getString(LATESTTIME, ""), resultVal = sharPref.getInt(LATESTRESULT, 0), resultType = 1)
-        val bestResult = Results(dateTime = sharPref.getString(BESTTIME, ""), resultVal = sharPref.getInt(BESTRESULT, 0), resultType = 2)
-        val worstResult = Results(dateTime = sharPref.getString(WORSTTIME, ""), resultVal = sharPref.getInt(WORSTRESULT, 0), resultType = 3)
+    private fun restorePrefs(sharPref: SharedPreferences): ArrayList<Results> {
+        val latestResult = Results(
+            dateTime = sharPref.getString(LATESTTIME, ""),
+            resultVal = sharPref.getInt(LATESTRESULT, 0),
+            resultType = 1
+        )
+        val bestResult = Results(
+            dateTime = sharPref.getString(BESTTIME, ""),
+            resultVal = sharPref.getInt(BESTRESULT, 0),
+            resultType = 2
+        )
+        val worstResult = Results(
+            dateTime = sharPref.getString(WORSTTIME, ""),
+            resultVal = sharPref.getInt(WORSTRESULT, 0),
+            resultType = 3
+        )
         val newResultList = ArrayList<Results>()
         newResultList.add(latestResult)
         newResultList.add(bestResult)
