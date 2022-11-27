@@ -70,9 +70,6 @@
         app:layout_constraintStart_toEndOf="@+id/newGameButton"
         app:layout_constraintTop_toTopOf="@+id/newGameButton" />
 
-
-    <include
-        android:id="@+id/dashDrawer"
-        layout="@layout/drawer_layout"/>
+    <include layout="@layout/drawer_layout" android:id="@+id/d"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

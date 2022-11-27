@@ -42,57 +42,7 @@ class GameActivity : AppCompatActivity() {
         gameAdapter = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, nameArray)
         binding.listView.adapter = gameAdapter
 
-        binding.apply {
-            toggle = ActionBarDrawerToggle(
-                this@GameActivity,
-                gameDrawer.drawerLayout,
-                R.string.open,
-                R.string.close
-            )
-            gameDrawer.drawerLayout.addDrawerListener(toggle)
-            toggle.syncState()
 
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-            gameDrawer.navView.setNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.toDash -> {
-                        Toast.makeText(this@GameActivity, R.string.here_toast, Toast.LENGTH_SHORT)
-                            .show()
-                        val dashIntent = Intent(this@GameActivity, FirstDashActivity::class.java)
-                        startActivity(dashIntent)
-                    }
-                    R.id.toGame -> {
-                        Toast.makeText(this@GameActivity, "Second Item Clicked", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                    R.id.toLearnMode -> {
-                        val learnIntent = Intent(this@GameActivity, LearningActivity::class.java)
-                        startActivity(learnIntent)
-                    }
-                    R.id.showInf -> {
-                        callDialog()
-                    }
-                }
-                gameDrawer.drawerLayout.closeDrawer(GravityCompat.START)
-                true
-            }
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun callDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle(R.string.information) //What is the message:
-            .setMessage(String.format("%s \n \n %s", getString(R.string.inf1), getString(R.string.inf2)))
-            .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
-            .create().show()
     }
 
     private fun randomState(): State {

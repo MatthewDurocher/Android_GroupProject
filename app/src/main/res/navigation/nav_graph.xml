@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/firstDashActivity">
+
+    <activity
+        android:id="@+id/firstDashActivity"
+        android:name="ca.college.usa.FirstDashActivity"
+        android:label="FirstDashActivity" />
+    <activity
+        android:id="@+id/gameActivity"
+        android:name="ca.college.usa.GameActivity"
+        android:label="GameActivity" />
+    <activity
+        android:id="@+id/learningActivity"
+        android:name="ca.college.usa.LearningActivity"
+        android:label="LearningActivity" />
+</navigation>

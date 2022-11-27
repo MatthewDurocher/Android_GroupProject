@@ -45,50 +45,5 @@ class LearningActivity : AppCompatActivity() {
             Log.d("TAG", "i clicked it")
         }
 
-        binding.apply {
-            toggle = ActionBarDrawerToggle(this@LearningActivity, learnDrawer.drawerLayout, R.string.open, R.string.close)
-            learnDrawer.drawerLayout.addDrawerListener(toggle)
-            toggle.syncState()
-
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-            learnDrawer.navView.setNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.toDash -> {
-                        val intent = Intent(this@LearningActivity, FirstDashActivity::class.java)
-                        startActivity(intent)
-                    }
-                    R.id.toGame -> {
-                        Toast.makeText(this@LearningActivity, "Second Item Clicked", Toast.LENGTH_SHORT).show()
-                        val gameIntent = Intent(this@LearningActivity, GameActivity::class.java)
-                        startActivity(gameIntent)
-                    }
-                    R.id.toLearnMode -> {
-                        Toast.makeText(this@LearningActivity,  R.string.here_toast, Toast.LENGTH_SHORT).show()
-
-                    }
-                    R.id.showInf -> {
-                        callDialog()
-                    }
-                }
-                learnDrawer.drawerLayout.closeDrawer(GravityCompat.START)
-                true
-            }
-        }
-    }
-
-    private fun callDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle(R.string.information) //What is the message:
-            .setMessage(String.format("%s \n \n %s", getString(R.string.inf1), getString(R.string.inf2)))
-            .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
-            .create().show()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)){
-            true
-        }
-        return super.onOptionsItemSelected(item)
     }
 }
