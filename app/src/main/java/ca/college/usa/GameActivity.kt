@@ -1,16 +1,20 @@
 package ca.college.usa
 
 
-import android.content.Context
+import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import ca.college.usa.databinding.GameLayoutBinding
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: GameLayoutBinding
@@ -60,6 +64,25 @@ class GameActivity : AppCompatActivity() {
                 binding.counterBackground.setBackgroundColor(Color.RED)
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.wiki -> {
+                val wikiPage = Intent(Intent.ACTION_VIEW)
+                wikiPage.data = Uri.parse(currentState.wiki)
+                startActivity(wikiPage)
+            }
+            R.id.newGame -> {
+                this.recreate()
+            }
+        }
+        return true
     }
 
     private fun increment() {
