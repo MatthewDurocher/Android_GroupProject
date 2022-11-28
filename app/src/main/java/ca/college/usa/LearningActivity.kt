@@ -18,12 +18,10 @@ import ca.college.usa.databinding.LearningModeBinding
 
 class LearningActivity : AppCompatActivity() {
     private lateinit var binding : LearningModeBinding
-    private lateinit var toggle: ActionBarDrawerToggle
 
     private lateinit var learnView: RecyclerView
     private lateinit var learnAdapter: LearningAdapter
     private lateinit var stateList: ArrayList<State>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,6 @@ class LearningActivity : AppCompatActivity() {
 
         // load the state data
         stateList = State.states ?: State.readData(this)
-
 
         learnView = binding.learningView
         learnAdapter = LearningAdapter(stateList)

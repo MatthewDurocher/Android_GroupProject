@@ -1,9 +1,11 @@
 package ca.college.usa
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,9 +20,10 @@ class FirstDashActivity: AppCompatActivity()  {
     private lateinit var binding : DashboardLayoutBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
-    private lateinit var dashView: RecyclerView
     private lateinit var dashAdapter: DashboardAdapter
     private lateinit var resultList: ArrayList<Results>
+
+    private lateinit var sharPref: SharedPreferences
 
     private val SHARPREFNAME = "dashboard_results"
     private val LATESTTIME = "latest_time"
@@ -29,9 +32,6 @@ class FirstDashActivity: AppCompatActivity()  {
     private val BESTRESULT = "best_result"
     private val WORSTTIME = "worst_time"
     private val WORSTRESULT = "worst_result"
-
-    private lateinit var sharPref: SharedPreferences
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /* Boilerplate */
@@ -43,14 +43,16 @@ class FirstDashActivity: AppCompatActivity()  {
         sharPref = getSharedPreferences(SHARPREFNAME, MODE_PRIVATE)
 
         // writer part here is for test only, it will be populated with actual data later
-        val writer: SharedPreferences.Editor = sharPref.edit()
-        writer.putString(LATESTTIME, "it is latest time for test")
-        writer.putString(BESTTIME, "it is best time for test")
-        writer.putString(WORSTTIME, "it is worst time for test")
-        writer.putInt(LATESTRESULT, 2)
-        writer.putInt(BESTRESULT, 1)
-        writer.putInt(WORSTRESULT, 3)
-        writer.apply() //save to disk
+        with(sharPref.edit()) {
+            putString(LATESTTIME, "it is latest time for test")
+            putString(BESTTIME, "it is best time for test")
+            putString(WORSTTIME, "it is worst time for test")
+            putInt(LATESTRESULT, 0)
+            putInt(BESTRESULT, 0)
+            putInt(WORSTRESULT, 0)
+            apply() //save to disk
+        }
+        //
 
         resultList = restorePrefs(sharPref)  // load data
 
@@ -91,10 +93,6 @@ class FirstDashActivity: AppCompatActivity()  {
                             R.string.here_toast,
                             Toast.LENGTH_SHORT).show()
 
-                        val dashIntent = Intent(
-                            this@FirstDashActivity,
-                            FirstDashActivity::class.java)
-                        startActivity(dashIntent)
                     }
                     R.id.toGame -> {
                         Toast.makeText(
@@ -120,7 +118,23 @@ class FirstDashActivity: AppCompatActivity()  {
                 d.drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
+            Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+        restorePrefs(sharPref)
+        dashAdapter.notifyDataSetChanged()
+        Toast.makeText(applicationContext, "onResume", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStart() {
+        restorePrefs(sharPref)
+        dashAdapter.notifyDataSetChanged()
+        Toast.makeText(applicationContext, "onStart", Toast.LENGTH_SHORT).show()
+        super.onStart()
     }
 
     private fun callDialog() {
@@ -159,6 +173,9 @@ class FirstDashActivity: AppCompatActivity()  {
             resultType = 3
         )
         val newResultList = ArrayList<Results>()
+        Log.d("SCORE", "latest: ${latestResult.resultVal}")
+        Log.d("SCORE", "best: ${bestResult.resultVal}")
+        Log.d("SCORE", "worst: ${worstResult.resultVal}")
         newResultList.add(latestResult)
         newResultList.add(bestResult)
         newResultList.add(worstResult)
