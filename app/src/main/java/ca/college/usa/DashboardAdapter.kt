@@ -1,5 +1,20 @@
 package ca.college.usa
 
+
+/**
+ * Full Name: Irina Salikhova (main developer for the activity) and Matthew Durocher
+ *
+ * Student ID: 041036621 (Matt) 041025826 (Irina)
+ *
+ * Course: CST3104
+ *
+ * Term:  Fall 2022
+ *
+ * Assignment: Team Project
+ *
+ * Date : 2022-11-27
+ */
+
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View

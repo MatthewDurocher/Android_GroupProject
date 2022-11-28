@@ -1,5 +1,18 @@
 package ca.college.usa
 
+/**
+ * Full Name: Matthew Durocher (main developer for the activity) and Irina Salikhova
+ *
+ * Student ID: 041036621 (Matt) 041025826 (Irina)
+ *
+ * Course: CST3104
+ *
+ * Term:  Fall 2022
+ *
+ * Assignment: Team Project
+ *
+ * Date : 2022-11-27
+ */
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
@@ -11,20 +24,6 @@ import java.io.InputStream
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import kotlinx.serialization.decodeFromString
-
-/**
- * Full Name: Matthew Durocher, Irina Salikhova
- *
- * Student ID: 41036621
- *
- * Course: CST3104
- *
- * Term:  Fall 2022
- *
- * Assignment: Team Project
- *
- * Date : November 4, 2022
- */
 
 @Serializable
 data class State(

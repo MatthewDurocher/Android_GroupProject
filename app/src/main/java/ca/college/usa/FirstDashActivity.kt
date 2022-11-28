@@ -1,5 +1,19 @@
 package ca.college.usa
 
+/**
+ * Full Name: Irina Salikhova (main developer for the activity) and Matthew Durocher
+ *
+ * Student ID: 041036621 (Matt) 041025826 (Irina)
+ *
+ * Course: CST3104
+ *
+ * Term:  Fall 2022
+ *
+ * Assignment: Team Project
+ *
+ * Date : 2022-11-27
+ */
+
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
@@ -40,18 +54,6 @@ class FirstDashActivity: AppCompatActivity()  {
 
         // to receive previous result information from sharedpref file
         sharPref = getSharedPreferences(SHARPREFNAME, MODE_PRIVATE)
-
-        // writer part here is for test only, it will be populated with actual data later
-        with(sharPref.edit()) {
-            putString(LATESTTIME, "it is latest time for test")
-            putString(BESTTIME, "it is best time for test")
-            putString(WORSTTIME, "it is worst time for test")
-            putInt(LATESTRESULT, 0)
-            putInt(BESTRESULT, 99999)
-            putInt(WORSTRESULT, 0)
-            apply() //save to disk
-        }
-        //
 
         resultList = restorePrefs(sharPref)  // load data
 
@@ -94,11 +96,6 @@ class FirstDashActivity: AppCompatActivity()  {
 
                     }
                     R.id.toGame -> {
-                        Toast.makeText(
-                            this@FirstDashActivity,
-                            "Second Item Clicked",
-                            Toast.LENGTH_SHORT).show()
-
                         val gameIntent = Intent(
                             this@FirstDashActivity,
                             GameActivity::class.java)
