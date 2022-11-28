@@ -13,7 +13,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ca.college.usa.databinding.DashboardLayoutBinding
 
 class FirstDashActivity: AppCompatActivity()  {
@@ -48,7 +47,7 @@ class FirstDashActivity: AppCompatActivity()  {
             putString(BESTTIME, "it is best time for test")
             putString(WORSTTIME, "it is worst time for test")
             putInt(LATESTRESULT, 0)
-            putInt(BESTRESULT, 0)
+            putInt(BESTRESULT, 99999)
             putInt(WORSTRESULT, 0)
             apply() //save to disk
         }
@@ -130,13 +129,6 @@ class FirstDashActivity: AppCompatActivity()  {
         Toast.makeText(applicationContext, "onResume", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onStart() {
-        restorePrefs(sharPref)
-        dashAdapter.notifyDataSetChanged()
-        Toast.makeText(applicationContext, "onStart", Toast.LENGTH_SHORT).show()
-        super.onStart()
-    }
-
     private fun callDialog() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(R.string.information) //What is the message:
@@ -157,6 +149,7 @@ class FirstDashActivity: AppCompatActivity()  {
     }
 
     private fun restorePrefs(sharPref: SharedPreferences): ArrayList<Results> {
+
         val latestResult = Results(
             dateTime = sharPref.getString(LATESTTIME, ""),
             resultVal = sharPref.getInt(LATESTRESULT, 0),
@@ -172,14 +165,22 @@ class FirstDashActivity: AppCompatActivity()  {
             resultVal = sharPref.getInt(WORSTRESULT, 0),
             resultType = 3
         )
-        val newResultList = ArrayList<Results>()
         Log.d("SCORE", "latest: ${latestResult.resultVal}")
         Log.d("SCORE", "best: ${bestResult.resultVal}")
         Log.d("SCORE", "worst: ${worstResult.resultVal}")
-        newResultList.add(latestResult)
-        newResultList.add(bestResult)
-        newResultList.add(worstResult)
-    return newResultList
+
+        if (this::resultList.isInitialized){
+            resultList[0] = (latestResult)
+            resultList[1] = (bestResult)
+            resultList[2] = (worstResult)
+        } else {
+            resultList = ArrayList()
+            resultList.add(latestResult)
+            resultList.add(bestResult)
+            resultList.add(worstResult)
+        }
+
+    return resultList
     }
 
 }
