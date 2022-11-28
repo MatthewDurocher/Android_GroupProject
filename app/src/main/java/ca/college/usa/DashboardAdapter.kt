@@ -1,6 +1,4 @@
 package ca.college.usa
-
-
 /**
  * Full Name: Irina Salikhova (main developer for the activity) and Matthew Durocher
  *
