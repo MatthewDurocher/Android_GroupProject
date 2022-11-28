@@ -70,7 +70,7 @@ class LearningActivity : AppCompatActivity() {
                     R.id.toDash -> {
                         val dashIntent = Intent(
                             this@LearningActivity,
-                            LearningActivity::class.java)
+                            FirstDashActivity::class.java)
                         startActivity(dashIntent)
 
                     }

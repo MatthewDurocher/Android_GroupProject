@@ -106,7 +106,7 @@ class GameActivity : AppCompatActivity() {
                     R.id.toDash -> {
                         val dashIntent = Intent(
                             this@GameActivity,
-                            LearningActivity::class.java)
+                            FirstDashActivity::class.java)
                         startActivity(dashIntent)
 
                     }
@@ -119,7 +119,7 @@ class GameActivity : AppCompatActivity() {
                     R.id.toLearnMode -> {
                         val learnIntent = Intent(
                             this@GameActivity,
-                            GameActivity::class.java)
+                            LearningActivity::class.java)
                         startActivity(learnIntent)
 
 

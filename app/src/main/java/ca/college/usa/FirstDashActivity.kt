@@ -75,16 +75,16 @@ class FirstDashActivity: AppCompatActivity()  {
         binding.apply {
             toggle = ActionBarDrawerToggle(
                 this@FirstDashActivity,
-                d.drawerLayout,
+                binding.drawerLayout,
                 R.string.open,
                 R.string.close
             )
-            d.drawerLayout.addDrawerListener(toggle)
+            binding.drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
 
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            d.navView.setNavigationItemSelectedListener {
+            binding.navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.toDash -> {
                         Toast.makeText(
@@ -109,7 +109,7 @@ class FirstDashActivity: AppCompatActivity()  {
                         callDialog()
                     }
                 }
-                d.drawerLayout.closeDrawer(GravityCompat.START)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
             Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show()
