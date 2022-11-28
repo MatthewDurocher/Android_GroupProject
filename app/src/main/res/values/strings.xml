@@ -19,6 +19,8 @@
     <string name="additional_congrat2">Your result is better than the worth for %s points</string>
     <string name="inf1">This game can help you start to recognize all US states and their flags and capitals.</string>
     <string name="inf2">The game was developed by Matthew Durocher and Irina Salikhova.</string>
+    <string name="game_info">Guess what state this flag belongs to by selecting an option below.</string>
+    <string name="toolbar_info">Press the play button to try again. The wiki button will open the state\'s wikipedia page</string>
     <string name="start_count">0</string>
     <string name="mode">MODE</string>
     <string name="info">ADDITIONAL</string>
@@ -26,4 +28,5 @@
     <string name="close">Close</string>
     <string name="here_toast">You are already here</string>
     <string name="dialog_button">Ok</string>
+    <string name="learn_info">"Browse information about each state. Press the wiki button to open each state's internet page. "</string>
 </resources>

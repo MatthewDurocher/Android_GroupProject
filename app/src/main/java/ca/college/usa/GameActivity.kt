@@ -1,24 +1,26 @@
 package ca.college.usa
 
 
-import android.content.Context
+
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import ca.college.usa.databinding.GameLayoutBinding
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: GameLayoutBinding
@@ -79,6 +81,9 @@ class GameActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
+        supportActionBar?.title = "Game"
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -92,8 +97,27 @@ class GameActivity : AppCompatActivity() {
             R.id.newGame -> {
                 this.recreate()
             }
+            R.id.showInf -> {
+                callDialog()
+            }
+            R.id.home -> {
+                NavUtils.navigateUpFromSameTask(this);
+            }
         }
-        return true
+        return super.onOptionsItemSelected(item);
+    }
+
+    private fun callDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(R.string.information) //What is the message:
+            .setMessage(String.format(
+                " %s \n \n %s \n \n %s",
+                getString(R.string.game_info),
+                getString(R.string.toolbar_info),
+                getString(R.string.inf2)
+            ))
+            .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
+            .create().show()
     }
 
     private fun increment() {
@@ -148,12 +172,12 @@ class GameActivity : AppCompatActivity() {
         builder.setTitle(R.string.congrats)
         val dialogLayout = inflater.inflate(R.layout.final_alert, null)
         val text1  = dialogLayout.findViewById<TextView>(R.id.yourResult)
-        text1.setText(getString(R.string.your_result) + counter)
+        text1.text = getString(R.string.your_result) + counter
         val text2  = dialogLayout.findViewById<TextView>(R.id.addCongrat)
         if (counter == bestResult) {
-            text2.setText(getString(R.string.additional_congrat1))
+            text2.text = getString(R.string.additional_congrat1)
         } else {
-            text2.setText(String.format(getString(R.string.additional_congrat2), (worstResult - counter)))
+            text2.text = String.format(getString(R.string.additional_congrat2), (worstResult - counter))
         }
         builder.setView(dialogLayout)
         builder.setPositiveButton("OK") { click: DialogInterface?, arg: Int -> }
