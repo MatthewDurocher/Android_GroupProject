@@ -28,5 +28,4 @@
     <string name="close">Close</string>
     <string name="here_toast">You are already here</string>
     <string name="dialog_button">Ok</string>
-    <string name="learn_info">"Browse information about each state. Press the wiki button to open each state's internet page. "</string>
 </resources>
