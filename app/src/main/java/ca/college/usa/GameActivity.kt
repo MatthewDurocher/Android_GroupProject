@@ -1,7 +1,18 @@
 package ca.college.usa
 
-
-
+/**
+ * Full Name: Matthew Durocher (main developer for the activity) and Irina Salikhova
+ *
+ * Student ID: 041036621 (Matt) 041025826 (Irina)
+ *
+ * Course: CST3104
+ *
+ * Term:  Fall 2022
+ *
+ * Assignment: Team Project
+ *
+ * Date : 2022-11-27
+ */
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
@@ -83,7 +94,6 @@ class GameActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         supportActionBar?.title = "Game"
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return super.onCreateOptionsMenu(menu)
     }
 

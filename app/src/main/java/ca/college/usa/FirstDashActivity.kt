@@ -1,5 +1,17 @@
 package ca.college.usa
-
+/**
+ * Full Name: Irina Salikhova (main developer for the activity) and Matthew Durocher
+ *
+ * Student ID: 041036621 (Matt) 041025826 (Irina)
+ *
+ * Course: CST3104
+ *
+ * Term:  Fall 2022
+ *
+ * Assignment: Team Project
+ *
+ * Date : 2022-11-27
+ */
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
@@ -100,7 +112,6 @@ class FirstDashActivity: AppCompatActivity()  {
                 d.drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
-            Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -109,7 +120,6 @@ class FirstDashActivity: AppCompatActivity()  {
         super.onResume()
         restorePrefs(sharPref)
         dashAdapter.notifyDataSetChanged()
-        Toast.makeText(applicationContext, "onResume", Toast.LENGTH_SHORT).show()
     }
 
     private fun callDialog() {
