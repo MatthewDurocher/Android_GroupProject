@@ -12,8 +12,6 @@ package ca.college.usa
  *
  * Date : 2022-11-27
  */
-
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color

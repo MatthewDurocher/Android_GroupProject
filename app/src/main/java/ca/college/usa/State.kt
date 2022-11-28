@@ -24,6 +24,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import kotlinx.serialization.decodeFromString
 
+
 @Serializable
 data class State(
     var name: String,

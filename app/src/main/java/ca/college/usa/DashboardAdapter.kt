@@ -12,8 +12,6 @@ package ca.college.usa
  *
  * Date : 2022-11-27
  */
-
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
