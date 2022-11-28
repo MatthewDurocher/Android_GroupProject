@@ -12,15 +12,23 @@ package ca.college.usa
  *
  * Date : 2022-11-27
  */
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ca.college.usa.databinding.LearningModeBinding
 
 class LearningActivity : AppCompatActivity() {
     private lateinit var binding : LearningModeBinding
+    private lateinit var toggle: ActionBarDrawerToggle
 
     private lateinit var learnView: RecyclerView
     private lateinit var learnAdapter: LearningAdapter
@@ -45,5 +53,66 @@ class LearningActivity : AppCompatActivity() {
             Log.d("TAG", "i clicked it")
         }
 
+        binding.apply {
+            toggle = ActionBarDrawerToggle(
+                this@LearningActivity,
+                binding.drawerLayout,
+                R.string.open,
+                R.string.close
+            )
+            binding.drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            binding.navView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.toDash -> {
+                        val dashIntent = Intent(
+                            this@LearningActivity,
+                            LearningActivity::class.java)
+                        startActivity(dashIntent)
+
+                    }
+                    R.id.toGame -> {
+                        val gameIntent = Intent(
+                            this@LearningActivity,
+                            GameActivity::class.java)
+                        startActivity(gameIntent)
+                    }
+                    R.id.toLearnMode -> {
+                        Toast.makeText(
+                            this@LearningActivity,
+                            R.string.here_toast,
+                            Toast.LENGTH_SHORT).show()
+
+                    }
+                    R.id.showInf -> {
+                        callDialog()
+                    }
+                }
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                true
+            }
+            Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun callDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(R.string.information) //What is the message:
+            .setMessage(String.format(
+                "%s \n \n %s",
+                getString(R.string.inf1),
+                getString(R.string.inf2)
+            ))
+            .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
+            .create().show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

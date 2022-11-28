@@ -24,7 +24,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GravityCompat
 import ca.college.usa.databinding.GameLayoutBinding
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -32,6 +35,7 @@ import java.time.format.FormatStyle
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: GameLayoutBinding
+    private lateinit var toggle: ActionBarDrawerToggle
 
     private lateinit var gameAdapter: ArrayAdapter<String>
     private lateinit var nameArray: ArrayList<String>
@@ -85,6 +89,50 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.apply {
+            toggle = ActionBarDrawerToggle(
+                this@GameActivity,
+                binding.drawerLayout,
+                R.string.open,
+                R.string.close
+            )
+            binding.drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            binding.navView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.toDash -> {
+                        val dashIntent = Intent(
+                            this@GameActivity,
+                            LearningActivity::class.java)
+                        startActivity(dashIntent)
+
+                    }
+                    R.id.toGame -> {
+                        Toast.makeText(
+                            this@GameActivity,
+                            R.string.here_toast,
+                            Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.toLearnMode -> {
+                        val learnIntent = Intent(
+                            this@GameActivity,
+                            GameActivity::class.java)
+                        startActivity(learnIntent)
+
+
+                    }
+                    R.id.showInf -> {
+                        callDialog()
+                    }
+                }
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                true
+            }
+            Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -98,12 +146,17 @@ class GameActivity : AppCompatActivity() {
                 val wikiPage = Intent(Intent.ACTION_VIEW)
                 wikiPage.data = Uri.parse(currentState.wiki)
                 startActivity(wikiPage)
+                return true
             }
             R.id.newGame -> {
                 this.recreate()
+                return true
             }
         }
-        return true
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun increment() {
@@ -169,5 +222,17 @@ class GameActivity : AppCompatActivity() {
         builder.setPositiveButton("OK") { click: DialogInterface?, arg: Int -> }
         builder.show()
     }
+    private fun callDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(R.string.information) //What is the message:
+            .setMessage(String.format(
+                "%s \n \n %s",
+                getString(R.string.inf1),
+                getString(R.string.inf2)
+            ))
+            .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
+            .create().show()
+    }
+
 
 }
