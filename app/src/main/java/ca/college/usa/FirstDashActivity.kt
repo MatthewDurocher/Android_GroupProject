@@ -133,7 +133,7 @@ class FirstDashActivity: AppCompatActivity()  {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(R.string.information) //What is the message:
             .setMessage(String.format(
-                "%s \n \n %s",
+                " %s \n \n %s",
                 getString(R.string.inf1),
                 getString(R.string.inf2)
             ))

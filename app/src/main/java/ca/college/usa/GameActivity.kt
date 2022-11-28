@@ -1,6 +1,7 @@
 package ca.college.usa
 
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -9,7 +10,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import ca.college.usa.databinding.GameLayoutBinding
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -68,6 +71,10 @@ class GameActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        supportActionBar?.title = "Game"
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -81,8 +88,27 @@ class GameActivity : AppCompatActivity() {
             R.id.newGame -> {
                 this.recreate()
             }
+            R.id.showInf -> {
+                callDialog()
+            }
+            R.id.home -> {
+                NavUtils.navigateUpFromSameTask(this);
+            }
         }
-        return true
+        return super.onOptionsItemSelected(item);
+    }
+
+    private fun callDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(R.string.information) //What is the message:
+            .setMessage(String.format(
+                " %s \n \n %s \n \n %s",
+                getString(R.string.game_info),
+                getString(R.string.toolbar_info),
+                getString(R.string.inf2)
+            ))
+            .setPositiveButton(R.string.dialog_button) { click: DialogInterface?, arg: Int -> }
+            .create().show()
     }
 
     private fun increment() {
