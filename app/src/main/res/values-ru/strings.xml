@@ -26,4 +26,7 @@
         <string name="close">Close</string>
         <string name="here_toast">Вы уже здесь</string>
         <string name="dialog_button">Оки-доки</string>
+        <string name="game_info">Угадай штат по флагу выбрав из списка ниже.</string>
+        <string name="toolbar_info">Нажми на старт, чтобы начать снова. Кнопка Википедии откроет страничку Википедии о данном штате. </string>
+
 </resources>
