@@ -97,6 +97,7 @@ class LearningActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun callDialog() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(R.string.information) //What is the message:
@@ -110,9 +111,6 @@ class LearningActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+        return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
     }
 }

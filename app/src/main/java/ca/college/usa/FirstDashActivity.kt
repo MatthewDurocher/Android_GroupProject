@@ -150,7 +150,7 @@ class FirstDashActivity: AppCompatActivity()  {
         )
         val bestResult = Results(
             dateTime = sharPref.getString(BESTTIME, ""),
-            resultVal = sharPref.getInt(BESTRESULT, 0),
+            resultVal = sharPref.getInt(BESTRESULT, 999),
             resultType = 2
         )
         val worstResult = Results(

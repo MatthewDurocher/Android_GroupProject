@@ -206,7 +206,7 @@ class GameActivity : AppCompatActivity() {
 
         val current = counter
         worstResult = sharPref.getInt(WORSTRESULT, 0)
-        bestResult = sharPref.getInt(BESTRESULT, 0)
+        bestResult = sharPref.getInt(BESTRESULT, 999)
 
         with (sharPref.edit()) {
             Log.d("SCORE", "latest")
